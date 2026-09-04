@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Interactive digital accessibility ecosystem</title><style>
+:root{
+  --bg:#ffffff;--panel:#f8fafc;--card:#ffffff;--text:#0f172a;--muted:#64748b;
+  --border:#dbe3ee;--accent:#5b5bd6;--accent-bg:#eef0ff;
+  --regulation:#0f9f8f;--services:#f1b82d;--knowledge:#3b82f6;
+  --participation:#7c5cff;--advocacy:#c2417d;--collaboration:#94a3b8
+}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.page{max-width:1180px;margin:0 auto;padding:28px 20px 36px}
+.topbar{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px}
+.eyebrow{font-size:14px;font-weight:700}.help{margin-top:4px;font-size:14px;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:8px}.filter{border:1px solid var(--border);background:#fff;color:var(--text);border-radius:999px;padding:9px 13px;font-size:14px;cursor:pointer}
+.filter:hover{background:#f8fafc}.filter[aria-pressed="true"]{background:var(--accent-bg);font-weight:700;border-color:#cfd4ff}
+.filter:focus-visible,.node:focus-visible{outline:3px solid #9aa4ff;outline-offset:3px}
+.map-shell{overflow-x:auto;border:1px solid var(--border);background:var(--panel);border-radius:16px;padding:14px}
+svg{display:block;width:100%;height:auto;min-width:820px}
+.actor{fill:var(--card);stroke:var(--border);stroke-width:1.5;cursor:pointer}.actor.core{stroke:var(--regulation);stroke-width:2.2}.actor.pwd{stroke:var(--participation);stroke-width:2.2}.actor.selected{stroke:var(--accent);stroke-width:3}
+.edge{fill:none;stroke-width:2.8;opacity:.95;transition:opacity .15s ease,stroke-width .15s ease}
+.edge.regulation{stroke:var(--regulation)}.edge.services{stroke:var(--services)}.edge.knowledge{stroke:var(--knowledge)}.edge.participation{stroke:var(--participation)}.edge.advocacy{stroke:var(--advocacy)}.edge.collaboration{stroke:var(--collaboration)}
+.edge.indirect{stroke-dasharray:7 6}.edge.dim{opacity:.06}.edge.active{stroke-width:4.2;opacity:1}
+.node-title{font-size:14px;font-weight:700;fill:var(--text)}.node-sub{font-size:11.4px;fill:var(--muted)}.section-label{font-size:10.5px;font-weight:700;letter-spacing:.06em;fill:var(--muted)}
+.bottom{display:grid;grid-template-columns:1.35fr .9fr;gap:14px;margin-top:16px}.card{border:1px solid var(--border);border-radius:14px;padding:16px;background:var(--card)}
+.card h2{font-size:14px;margin:0 0 6px}.card p{font-size:14px;color:var(--muted);margin:0;line-height:1.5}
+.legend{display:grid;gap:8px;font-size:14px;color:var(--muted)}.legend-row{display:flex;align-items:center;gap:10px}.legend-line{width:30px;height:0;border-top:3px solid;display:inline-block;flex:0 0 auto}.legend-line.dashed{border-top-style:dashed}
+.lang-links{margin-top:14px;font-size:13px;color:var(--muted)}.lang-links a{color:var(--accent);text-decoration:none}.lang-links a:hover{text-decoration:underline}
+@media(max-width:800px){.page{padding:18px 12px 28px}.bottom{grid-template-columns:1fr}.map-shell{padding:8px}}
+@media(prefers-reduced-motion:reduce){.edge{transition:none}}
+</style></head>
+<body><main class="page">
+<div class="topbar"><div><div class="eyebrow">Current ecosystem in France</div><div class="help">Select a relationship type or actor to explore the ecosystem.</div></div><div class="filters" role="group" aria-label="Relationship filters"><button type="button" class="filter" data-filter="all">All</button>
+<button type="button" class="filter" data-filter="regulation">Regulation</button>
+<button type="button" class="filter" data-filter="services">Services</button>
+<button type="button" class="filter" data-filter="knowledge">Knowledge</button>
+<button type="button" class="filter" data-filter="participation">Participation</button>
+<button type="button" class="filter" data-filter="advocacy">Advocacy</button></div></div>
+<div class="map-shell">
+<svg viewBox="0 0 1120 840" role="img" aria-labelledby="map-title map-desc">
+<title id="map-title">Interactive digital accessibility ecosystem</title><desc id="map-desc">People with disabilities contribute through civil society. Civil society then connects participation directly to accessibility services and separately to public- and private-sector digital product teams.</desc>
+<defs>
+<marker id="arr-reg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--regulation)"/></marker>
+<marker id="arr-service" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--services)"/></marker>
+<marker id="arr-knowledge" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--knowledge)"/></marker>
+<marker id="arr-part" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--participation)"/></marker>
+<marker id="arr-adv" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--advocacy)"/></marker>
+<marker id="arr-col" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--collaboration)"/></marker>
+</defs>
+<text x="560" y="24" text-anchor="middle" class="section-label">POLICY & GOVERNANCE</text>
+<text x="560" y="185" text-anchor="middle" class="section-label">ORGANISATIONS & PRODUCT DELIVERY</text>
+<text x="560" y="410" text-anchor="middle" class="section-label">ACCESSIBILITY EXPERTISE & SUPPORT</text>
+<text x="560" y="620" text-anchor="middle" class="section-label">KNOWLEDGE, REPRESENTATION & PARTICIPATION</text>
+
+<path class="edge regulation" data-type="regulation" data-nodes="government public" d="M490 130 L490 158 L310 158 L310 215" marker-end="url(#arr-reg)"/>
+<path class="edge regulation" data-type="regulation" data-nodes="government private" d="M630 130 L630 158 L810 158 L810 215" marker-end="url(#arr-reg)"/>
+<path class="edge services" data-type="services" data-nodes="services public" d="M480 435 L480 380 L360 380 L360 340" marker-end="url(#arr-service)"/>
+<path class="edge services" data-type="services" data-nodes="services private" d="M640 435 L640 380 L760 380 L760 340" marker-end="url(#arr-service)"/>
+<path class="edge services" data-type="services" data-nodes="services research" d="M450 530 L450 560 L220 560 L220 650" marker-end="url(#arr-service)"/>
+<path class="edge knowledge" data-type="knowledge" data-nodes="research services" d="M290 650 L445 530" marker-end="url(#arr-knowledge)"/>
+<path class="edge knowledge" data-type="knowledge" data-nodes="civil services" d="M505 650 L525 530" marker-end="url(#arr-knowledge)"/>
+<path class="edge participation" data-type="participation" data-nodes="pwd civil" d="M780 710 L690 710" marker-start="url(#arr-part)" marker-end="url(#arr-part)"/>
+<path class="edge participation" data-type="participation" data-nodes="civil services" d="M585 650 L585 530" marker-end="url(#arr-part)"/>
+<path class="edge participation" data-type="participation" data-nodes="civil public" d="M455 650 L455 600 L350 600 L350 365 L310 365 L310 340" marker-end="url(#arr-part)"/>
+<path class="edge participation" data-type="participation" data-nodes="civil private" d="M625 650 L625 600 L770 600 L770 365 L810 365 L810 340" marker-end="url(#arr-part)"/>
+<path class="edge collaboration" data-type="collaboration" data-nodes="research civil" d="M340 710 L390 710" marker-start="url(#arr-col)" marker-end="url(#arr-col)"/>
+<path class="edge advocacy indirect" data-type="advocacy" data-nodes="civil government" d="M450 790 L450 815 L30 815 L30 95 L430 95" marker-end="url(#arr-adv)"/>
+
+<g class="node" data-node="government" tabindex="0" role="button"><rect class="actor" x="430" y="45" width="260" height="85" rx="18"/><text x="560" y="77" text-anchor="middle" class="node-title">REGULATION & GOVERNANCE</text><text x="560" y="101" text-anchor="middle" class="node-sub">European Union · French Government</text><text x="560" y="119" text-anchor="middle" class="node-sub">law · standards · RGAA · public policy</text></g>
+<g class="node" data-node="public" tabindex="0" role="button"><rect class="actor core" x="185" y="215" width="250" height="125" rx="18"/><text x="310" y="247" text-anchor="middle" class="node-title">PUBLIC SECTOR</text><text x="310" y="271" text-anchor="middle" class="node-sub">ministries · operators · local authorities</text><line x1="220" x2="400" y1="289" y2="289" stroke="var(--border)"/><text x="310" y="313" text-anchor="middle" class="node-title">DIGITAL PRODUCT TEAMS</text><text x="310" y="331" text-anchor="middle" class="node-sub">UX · Product · Design · Development</text></g>
+<g class="node" data-node="private" tabindex="0" role="button"><rect class="actor core" x="685" y="215" width="250" height="125" rx="18"/><text x="810" y="247" text-anchor="middle" class="node-title">PRIVATE SECTOR</text><text x="810" y="271" text-anchor="middle" class="node-sub">SMEs · ETIs · large companies</text><line x1="720" x2="900" y1="289" y2="289" stroke="var(--border)"/><text x="810" y="313" text-anchor="middle" class="node-title">DIGITAL PRODUCT TEAMS</text><text x="810" y="331" text-anchor="middle" class="node-sub">UX · Product · Design · Development</text></g>
+<g class="node" data-node="services" tabindex="0" role="button"><rect class="actor" x="425" y="435" width="270" height="95" rx="18"/><text x="560" y="466" text-anchor="middle" class="node-title">ACCESSIBILITY SERVICES</text><text x="560" y="490" text-anchor="middle" class="node-sub">consultancies · specialists · audits · tools</text><text x="560" y="510" text-anchor="middle" class="node-sub">training · standards · monitoring · support</text></g>
+<g class="node" data-node="research" tabindex="0" role="button"><rect class="actor" x="40" y="650" width="300" height="140" rx="18"/><text x="190" y="684" text-anchor="middle" class="node-title">RESEARCH & EDUCATION</text><text x="190" y="711" text-anchor="middle" class="node-sub">universities · research labs · design schools</text><text x="190" y="734" text-anchor="middle" class="node-sub">professional networks · methods · training</text><text x="190" y="757" text-anchor="middle" class="node-sub">research · knowledge transfer · capacity building</text></g>
+<g class="node" data-node="civil" tabindex="0" role="button"><rect class="actor" x="390" y="650" width="300" height="140" rx="18"/><text x="540" y="684" text-anchor="middle" class="node-title">CIVIL SOCIETY</text><text x="540" y="711" text-anchor="middle" class="node-sub">disability organisations · NGOs · associations</text><text x="540" y="734" text-anchor="middle" class="node-sub">advocacy · representation · support</text><text x="540" y="757" text-anchor="middle" class="node-sub">participant access · mediation · capacity building</text></g>
+<g class="node" data-node="pwd" tabindex="0" role="button"><rect class="actor pwd" x="780" y="650" width="300" height="140" rx="18"/><text x="930" y="684" text-anchor="middle" class="node-title">PEOPLE WITH DISABILITIES</text><text x="930" y="711" text-anchor="middle" class="node-sub">lived-experience expertise</text><text x="930" y="734" text-anchor="middle" class="node-sub">real-world digital use · assistive technologies</text><text x="930" y="757" text-anchor="middle" class="node-sub">accessibility barriers · diverse user needs</text></g>
+</svg></div>
+
+<div class="bottom"><section class="card" aria-live="polite"><h2 id="detail-title">Key insight</h2><p id="detail-text">People with disabilities contribute through civil society. Civil society then connects participation directly to accessibility services and separately to public- and private-sector digital product teams.</p></section>
+<section class="card"><h2>Relationship types</h2><div class="legend"><div class="legend-row"><span class="legend-line" style="border-color:var(--regulation)"></span><span>Regulation / policy</span></div>
+<div class="legend-row"><span class="legend-line" style="border-color:var(--services)"></span><span>Services / support</span></div>
+<div class="legend-row"><span class="legend-line" style="border-color:var(--knowledge)"></span><span>Knowledge / capacity building</span></div>
+<div class="legend-row"><span class="legend-line" style="border-color:var(--participation)"></span><span>Participation / feedback</span></div>
+<div class="legend-row"><span class="legend-line dashed" style="border-color:var(--advocacy)"></span><span>Advocacy / influence</span></div>
+<div class="legend-row"><span class="legend-line" style="border-color:var(--collaboration)"></span><span>Collaboration / exchange</span></div></div></section></div>
+<div class="lang-links"><a href="map-fr.html">Version française</a> · <a href="index.html">Home</a></div>
+</main>
+<script>
+(() => {
+const edges=[...document.querySelectorAll('.edge')], nodes=[...document.querySelectorAll('.node')], buttons=[...document.querySelectorAll('.filter')];
+const title=document.querySelector('#detail-title'), text=document.querySelector('#detail-text');
+const details={"government": ["Regulation & governance", "The European Union and French Government establish the regulatory and policy environment. Civil society also seeks to influence government through advocacy and representation."], "public": ["Public sector", "Public digital product teams receive accessibility services and can receive participant feedback mediated through civil society."], "private": ["Private sector", "Private digital product teams receive accessibility services and can receive participant feedback mediated through civil society."], "services": ["Accessibility services", "Accessibility services support public and private product teams and research and education. Civil society also provides a direct participation pathway to accessibility services."], "research": ["Research & education", "Research and education provides knowledge and capacity-building input to accessibility services while also receiving accessibility support."], "civil": ["Civil society", "Civil society is the participation intermediary: it connects people with disabilities directly to accessibility services and separately to public and private product teams, while also contributing knowledge and advocacy."], "pwd": ["People with disabilities", "People with disabilities contribute lived-experience expertise through civil society rather than through direct organisational relationships."]}, copy={"regulation": "Shows regulatory relationships toward public and private organisations.", "services": "Shows accessibility services supporting public and private product teams and research and education.", "knowledge": "Shows knowledge flows into accessibility services from research and education and from civil society.", "participation": "Shows people with disabilities participating through civil society. Civil society then connects directly to accessibility services and has two separate participation routes to public and private digital product teams.", "advocacy": "Shows civil society influencing government through advocacy and representation."}, heads={"regulation": "Regulation relationships", "services": "Services relationships", "knowledge": "Knowledge relationships", "participation": "Participation relationships", "advocacy": "Advocacy relationships"}, general="People with disabilities contribute through civil society. Civil society then connects participation directly to accessibility services and separately to public- and private-sector digital product teams.";
+function clearNodes(){nodes.forEach(n=>n.querySelector('.actor').classList.remove('selected'));}
+function filter(type){clearNodes();edges.forEach(e=>{const on=type==='all'||e.dataset.type===type;e.classList.toggle('dim',!on);e.classList.toggle('active',type!=='all'&&on);});buttons.forEach(b=>b.setAttribute('aria-pressed',b.dataset.filter===type?'true':'false'));if(type==='all'){title.textContent="Key insight";text.textContent=general;return;}title.textContent=heads[type]||type;text.textContent=copy[type]||general;}
+function selectNode(node){const id=node.dataset.node;clearNodes();node.querySelector('.actor').classList.add('selected');edges.forEach(e=>{const linked=(e.dataset.nodes||'').split(' ').includes(id);e.classList.toggle('dim',!linked);e.classList.toggle('active',linked);});buttons.forEach(b=>b.setAttribute('aria-pressed','false'));title.textContent=details[id][0];text.textContent=details[id][1];}
+buttons.forEach(b=>b.addEventListener('click',()=>filter(b.dataset.filter)));nodes.forEach(n=>{n.addEventListener('click',()=>selectNode(n));n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectNode(n);}});});filter('all');
+})();
+</script></body></html>
